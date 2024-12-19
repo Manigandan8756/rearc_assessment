@@ -7,10 +7,9 @@ from botocore.exceptions import ClientError
 # Constants for S3 bucket and file details
 BUCKET_NAME = 'rearc-assessment'
 S3_FILE_KEY = 'bls/pr.data.0.Current'  # Path of the file in the S3 bucket
-# Base URL of the BLS website
-BASE_URL = "https://download.bls.gov/pub/time.series/pr/"
-WEBSITE_URL = BASE_URL + "pr.data.0.Current"
-USER_AGENT = "MyLambdaApp/1.0 (contact@example.com)"  # Replace with a valid User-Agent
+BASE_URL = "https://download.bls.gov/pub/time.series/pr/" # Base URL of the BLS website
+WEBSITE_URL = BASE_URL + "pr.data.0.Current"  # Complete URL of the BLS website
+USER_AGENT = "MyLambdaApp/1.0 (contact@example.com)"  # Added User-Agent to comply with BLS data policy
 
 # S3 client
 s3_client = boto3.client('s3')
@@ -66,8 +65,9 @@ def upload_file_to_s3(content, bucket, key):
 
 def sync_data():
     """
-    AWS Lambda handler to fetch a file from a website, 
-    compare it with the S3 file, and update S3 if needed.
+    Function to fetch a file from a website, 
+    compare it with the existing S3 file, and update to S3,
+    if a change is identifed in the Source website file.
     """
     try:
         # Fetch the file from the website

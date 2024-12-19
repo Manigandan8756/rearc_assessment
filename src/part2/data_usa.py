@@ -12,6 +12,10 @@ logging.basicConfig(
 )
 
 class APIToS3Handler:
+    """
+    Class to read the USA population data from the Public server
+    and upload it to the S3 bucket.
+    """
     def __init__(self, api_url, s3_bucket, s3_key_prefix, aws_region="ap-south-1"):
         self.api_url = api_url
         self.s3_bucket = s3_bucket
@@ -25,15 +29,14 @@ class APIToS3Handler:
             response = requests.get(self.api_url, timeout=30)
             response.raise_for_status()  # Raise an HTTPError for bad responses
             logging.info("Data successfully fetched from API.")
-            return response.json()["data"]
+            return response.json()["data"] # Parse the required content and return it
         except requests.exceptions.RequestException as e:
             logging.error("Error while fetching data from API: %s", e)
             raise
 
     def write_data_to_s3(self, data):
         """Write data to an S3 bucket."""
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        s3_key = f"{self.s3_key_prefix}/usa_population_data.json"
+        s3_key = f"{self.s3_key_prefix}/usa_population_data.json" # File name to get stored
         
         logging.info("Writing data to S3 bucket: %s, Key: %s", self.s3_bucket, s3_key)
         try:
@@ -68,7 +71,7 @@ class APIToS3Handler:
             logging.error("Failed to process data from API to S3: %s", e)
 
 if __name__ == "__main__":
-    # Define API URL and S3 parameters
+    # Source API URL and S3 parameters
     API_URL = "https://datausa.io/api/data?drilldowns=Nation&measures=Population"
     S3_BUCKET = "rearc-assessment"
     S3_KEY_PREFIX = "usa_data"
