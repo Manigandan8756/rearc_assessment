@@ -10,11 +10,6 @@ from util.pipeline import *
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-dir_list = os.path.dirname(os.path.abspath(
-    inspect.getfile(inspect.currentframe()))).split(os.sep, 10)
-for level in range(5):
-    sys.path.insert(0, os.sep.join(dir_list[:(len(dir_list))-level]))
-
 def extract_file_names_from_website(url):
     """
     Wrangling the website data and return the file names
