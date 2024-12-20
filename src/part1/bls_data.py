@@ -5,7 +5,6 @@ import os
 from botocore.exceptions import ClientError
 from bs4 import BeautifulSoup
 import sys
-import inspect
 from util.pipeline import *
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
