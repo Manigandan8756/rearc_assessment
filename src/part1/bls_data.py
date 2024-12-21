@@ -5,9 +5,10 @@ import os
 from botocore.exceptions import ClientError
 from bs4 import BeautifulSoup
 import sys
-from util.pipeline import *
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from util.pipeline import *
+
 
 def extract_file_names_from_website(url):
     """
@@ -134,4 +135,4 @@ if __name__ == "__main__":
 
     # S3 client
     s3_client = boto3.client("s3")
-    sync_data(bucket_name, base_url)
+    sync_data(bucket_name, base_url, s3_client)

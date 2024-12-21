@@ -4,11 +4,11 @@ import logging
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
 import json
 from datetime import datetime
-from util.pipeline import *
 import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from util.pipeline import *
 
 # Configure logging
 logging.basicConfig(
